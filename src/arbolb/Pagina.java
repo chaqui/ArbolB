@@ -23,12 +23,14 @@ public class Pagina {
         hijos = new Pagina[max+1];
     }
     public Pagina insertar(Dato datoInsertar){
+        
+        //Si no tiene padre porque es raiz
         if (this.padre==null) {
             boolean bandent=false;
-                   if (hijos[1]!=null) {
-                        bandent=true;
-                    }
+            //si no tiene hijo 1 es porque no tiene hijos
+                  bandent=(this.hijos[1]==null)?true:false;
                   if (bandent) {
+           // si no esta lleno es porque todavia podemos ingresar un valor
             if (this.elementos<this.max) {
                 this.datos[this.elementos]= datoInsertar;
                 
@@ -48,6 +50,7 @@ public class Pagina {
                 this.elementos++;
                 return null;
             }
+            // si no es que esta llena la pagina y se debe de dividir
             else{
                 
                   Dato[] auxiliar = new Dato[max+1];
@@ -90,6 +93,29 @@ public class Pagina {
                 return null;
                 
             }
+                  else{
+                      if (this.elementos<this.max) {
+                            this.datos[this.elementos]= datoInsertar;
+                            boolean bandera=true;
+                            while (bandera) {
+                                bandera=false;
+                                for (int i = 1; i < this.elementos; i++) {
+                                    if (this.datos[i].getId() <this.datos[i-1].getId()) {
+                                        Dato aux = this.datos[i];
+                                        this.datos[i]=this.datos[i-1];
+                                        this.datos[i-1]=aux;
+                                        bandera=true;
+                                    }
+                                }
+                            }
+                             this.elementos++;
+                             return null;
+                      
+                  } 
+                      else{
+                          
+                      }
+        }
         }
         return null;
     }
