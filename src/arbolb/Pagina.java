@@ -24,6 +24,11 @@ public class Pagina {
     }
     public Pagina insertar(Dato datoInsertar){
         if (this.padre==null) {
+            boolean bandent=false;
+                   if (hijos[1]!=null) {
+                        bandent=true;
+                    }
+                  if (bandent) {
             if (this.elementos<this.max) {
                 this.datos[this.elementos]= datoInsertar;
                 
@@ -44,11 +49,7 @@ public class Pagina {
                 return null;
             }
             else{
-                boolean bandent=false;
-                   if (hijos[1]!=null) {
-                        bandent=true;
-                    }
-                  if (bandent) {
+                
                   Dato[] auxiliar = new Dato[max+1];
                 for (int i = 0; i < max; i++) {
                     auxiliar[i]= this.datos[i];
