@@ -88,27 +88,18 @@ public class Pagina {
                                 for (int i = 0; i < max%2+1; i++) {
                                     hijos[2].insertar(auxiliar[i]);
                                 }
-                           
+                           this.elementos=1;
                             
                         }  
                     }
                     else{
                         if (this.elementos<this.max) {
-                            this.datos[this.elementos]= datoInsertar;
-                            boolean bandera=true;
-                            while (bandera) {
-                                bandera=false;
-                                for (int i = 1; i < this.elementos; i++) {
-                                     if (this.datos[i].getId() <this.datos[i-1].getId()) {
-                                        Dato aux = this.datos[i];
-                                        this.datos[i]=this.datos[i-1];
-                                        this.datos[i-1]=aux;
-                                        bandera=true;
-                                    }
+                            boolean banIng=false;
+                            for (int i = 0; i < this.elementos; i++) {
+                                if (datoInsertar.getId()<this.datos[i].getId()) {
+                                    this.hijos[i]
                                 }
                             }
-                            this.elementos++;
-                            return null;   
                         } 
                         else{
                             if (this.hijos[max]!=null) {
