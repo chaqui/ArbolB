@@ -14,6 +14,7 @@ public class Pagina {
     private int max,min,elementos;
     private Pagina padre;
     private int id;
+    private int aux;
 
     public Pagina(int max, Pagina padre) {
         this.max = max;
@@ -23,18 +24,18 @@ public class Pagina {
         datos= new Dato[max];
         hijos = new Pagina[max+1];
     }
-    public Pagina insertar(Dato datoInsertar){
+    public Pagina insertar(Dato datoInsertar, Pagina padre){
         
         //Si no tiene padre porque es raiz
         if (this.padre==null) {
-            return this.ingresarEnRaiz(datoInsertar);
+            return this.ingresarEnRaiz(datoInsertar,padre);
         }
         else{
             
         }
         return null;
     }
-    private Pagina ingresarEnRaiz(Dato datoInsertar){
+    private Pagina ingresarEnRaiz(Dato datoInsertar,Pagina padre){
         boolean bandent=false;
             //si no tiene hijo 1 es porque no tiene hijos
                   bandent=(this.hijos[1]==null)?true:false;
@@ -82,11 +83,11 @@ public class Pagina {
                                 this.datos[1]=auxiliar[max%2+1];
                                 this.hijos[1]= new Pagina(max,this);
                                 for (int i = 0; i < max%2+1; i++) {
-                                    hijos[1].insertar(auxiliar[i]);
+                                    hijos[1].insertar(auxiliar[i],this);
                                 }
                                 this.hijos[2]= new Pagina(max,this);
                                 for (int i = 0; i < max%2+1; i++) {
-                                    hijos[2].insertar(auxiliar[i]);
+                                    hijos[2].insertar(auxiliar[i],this);
                                 }
                            this.elementos=1;
                             
@@ -97,17 +98,34 @@ public class Pagina {
                             boolean banIng=false;
                             for (int i = 0; i < this.elementos; i++) {
                                 if (datoInsertar.getId()<this.datos[i].getId()) {
-                                    this.hijos[i]
+                                    Pagina a=this.hijos[i].insertar(datoInsertar,this);
+                                     if (a!=null) {
+                                    this.actualizarPagina(a);
+                                    }
+                                    banIng=true;
+                                }
+                            }
+                            if (!banIng) {
+                                if (this.hijos[this.elementos]!=null) {
+                                      Pagina a=this.hijos[this.elementos].insertar(datoInsertar,this);
+                                     if (a!=null) {
+                                    this.actualizarPagina(a);
+                                }
+                                }
+                                else{
+                                    if (this.datos[this.elementos]!=null) {
+                                        this.datos[this.elementos]=datoInsertar;
+                                        this.elementos++;
+                                        return null;
+                                    }
                                 }
                             }
                         } 
                         else{
                             if (this.hijos[max]!=null) {
-                                Pagina a=this.hijos[max].insertar(datoInsertar);
+                                Pagina a=this.hijos[max].insertar(datoInsertar,this);
                                 if (a!=null) {
-                                    this.hijos=a.hijos;
-                                    this.elementos=a.elementos;
-                                    this.elementos=a.elementos;
+                                    this.actualizarPagina(a);
                                 }
                             }   
                             else{
@@ -134,16 +152,21 @@ public class Pagina {
                                     this.datos[1]=auxiliar[max%2+1];
                                     this.hijos[1]= new Pagina(max,this);
                                     for (int i = 0; i < max%2+1; i++) {
-                                        hijos[1].insertar(auxiliar[i]);
+                                        hijos[1].insertar(auxiliar[i],this);
                                     }
                                     this.hijos[2]= new Pagina(max,this);
                                     for (int i = 0; i < max%2+1; i++) {
-                                        hijos[2].insertar(auxiliar[i]);
+                                        hijos[2].insertar(auxiliar[i],this);
                                     }
                             }
                         }
                     }
                     return null;
+                }
+                private void actualizarPagina(Pagina a){
+                    this.hijos=a.hijos;
+                    this.datos=a.datos;
+                    this.elementos=a.elementos;
                 }
     
             }
