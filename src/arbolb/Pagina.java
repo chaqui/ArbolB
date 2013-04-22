@@ -27,8 +27,17 @@ public class Pagina {
     public Pagina insertar(Dato datoInsertar, Pagina padre){
         
         //Si no tiene padre porque es raiz
-        if (this.padre==null) {
+        if (padre==null) {
             return this.ingresarEnRaiz(datoInsertar,padre);
+        }
+        else{
+            return this.ingresarEnRaiz(datoInsertar, padre);
+        }
+    
+    }
+    private Pagina ingresarEnHoja(Dato datoInsertar,Pagina Padre){
+        if (this.elementos < this.max) {
+           
         }
         else{
             
@@ -109,8 +118,8 @@ public class Pagina {
                                 if (this.hijos[this.elementos]!=null) {
                                       Pagina a=this.hijos[this.elementos].insertar(datoInsertar,this);
                                      if (a!=null) {
-                                    this.actualizarPagina(a);
-                                }
+                                        this.actualizarPagina(a);
+                                    }
                                 }
                                 else{
                                     if (this.datos[this.elementos]!=null) {
@@ -129,9 +138,13 @@ public class Pagina {
                                 }
                             }   
                             else{
+                                Pagina[] auxPag = new Pagina[max];
                                 Dato[] auxiliar = new Dato[max+1];
                                 for (int i = 0; i < max; i++) {
                                 auxiliar[i]= this.datos[i];
+                                }
+                                for (int i = 0; i < max; i++) {
+                                    auxPag= this.hijos;
                                 }
                                 auxiliar[max]=datoInsertar;
                                 boolean bandera=true;
@@ -139,10 +152,17 @@ public class Pagina {
                                     bandera=false;
                                     for (int i = 1; i <= max; i++) {
                                         if (auxiliar[i].getId() <auxiliar[i-1].getId()) {
-                                            Dato aux = this.datos[i];
-                                            auxiliar[i]=this.datos[i-1];
+                                            Dato aux = auxiliar[i];
+                                            auxiliar[i]=auxiliar[i-1];
                                             auxiliar[i-1]=aux;
+                                            if (auxPag[i]!=null && auxPag[i-1]!=null) {
+                                                Pagina auxP =  auxPag[i];
+                                                auxPag[i]=auxPag[i-1];
+                                                auxPag[i-1]=auxP; 
+                                                
+                                            }
                                             bandera=true;
+                                            break;
                                         }
                                     }
                                 }
@@ -158,15 +178,30 @@ public class Pagina {
                                     for (int i = 0; i < max%2+1; i++) {
                                         hijos[2].insertar(auxiliar[i],this);
                                     }
+                                }
                             }
                         }
+                        return null;
                     }
-                    return null;
-                }
                 private void actualizarPagina(Pagina a){
                     this.hijos=a.hijos;
                     this.datos=a.datos;
                     this.elementos=a.elementos;
+                }
+                private void ordenamientoConHijos(){
+                    boolean bandera=true;
+                     while (bandera) {
+                                bandera=false;
+                                for (int i = 1; i < this.elementos; i++) {
+                                    if (this.datos[i].getId() <this.datos[i-1].getId()) {
+                                        Dato aux = this.datos[i];
+                                        this.datos[i]=this.datos[i-1];
+                                        
+                                        this.datos[i-1]=aux;
+                                        bandera=true;
+                                    }
+                                }
+                            }
                 }
     
             }
