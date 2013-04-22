@@ -33,11 +33,54 @@ public class Pagina {
         else{
             return this.ingresarEnRaiz(datoInsertar, padre);
         }
-    
     }
     private Pagina ingresarEnHoja(Dato datoInsertar,Pagina Padre){
         if (this.elementos < this.max) {
-           
+            if (this.hijos[1]!=null) {
+                this.datos[this.elementos]=datoInsertar;
+                boolean bandera=true;
+                while (bandera) {
+                    bandera=false;
+                    for (int i = 1; i < this.elementos; i++) {
+                        if (this.datos[i].getId() <this.datos[i-1].getId()) {
+                            Dato aux = this.datos[i];
+                            this.datos[i]=this.datos[i-1];
+                            this.datos[i-1]=aux;
+                            bandera=true;
+                        }
+                    }
+                }
+                this.elementos++;
+                return null;
+            }
+            else{
+                boolean baux=true;
+                for (int i = 0; i < this.elementos; i++) {
+                    if (datoInsertar.getId()< this.datos[i].getId()){
+                        if (this.hijos[i]!=null) {
+                            this.hijos[i].insertar(datoInsertar, this);
+                            baux=false;
+                        }
+                    }
+                }
+                if (baux) {
+                    this.datos[this.elementos]=datoInsertar;
+                        boolean bandera=true;
+                              while (bandera) {
+                                  bandera=false;
+                                  for (int i = 1; i < this.elementos; i++) {
+                                      if (this.datos[i].getId() <this.datos[i-1].getId()) {
+                                          Dato aux = this.datos[i];
+                                          this.datos[i]=this.datos[i-1];
+                                          this.datos[i-1]=aux;
+                                          bandera=true;
+                                      }
+                                  }
+                              }
+                        this.elementos++;
+                        return null;
+                }
+            }
         }
         else{
             
