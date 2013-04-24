@@ -149,6 +149,7 @@ public class Pagina {
                             
                         }  
                     }
+                  //si tiene hijos
                     else{
                         if (this.elementos<this.max) {
                             boolean banIng=false;
@@ -178,13 +179,17 @@ public class Pagina {
                             }
                         } 
                         else{
-                            if (this.hijos[max]!=null) {
-                                Pagina a=this.hijos[max].insertar(datoInsertar,this);
-                                if (a!=null) {
+                            boolean bank=true;   
+                            for (int i = 0; i < this.elementos; i++) {
+                                if (datoInsertar.getId()<this.datos[i].getId()) {
+                                    Pagina a=this.hijos[i].insertar(datoInsertar,this);
+                                     if (a!=null) {
                                     this.actualizarPagina(a);
+                                    }
+                                    bank=false;
                                 }
-                            }   
-                            else{
+                            }
+                            if(bank){
                                 Pagina[] auxPag = new Pagina[max];
                                 Dato[] auxiliar = new Dato[max+1];
                                 for (int i = 0; i < max; i++) {
