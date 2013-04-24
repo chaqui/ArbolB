@@ -169,14 +169,14 @@ public class Pagina {
                                 for (int i = 0; i < max; i++) {
                                     this.datos[i]=null;
                                 }
-                                    this.datos[1]=auxiliar[max%2+1];
+                                    this.datos[0]=auxiliar[max%2+1];
+                                    this.hijos[0]= new Pagina(max,this);
+                                    for (int i = 0; i < max%2+1; i++) {
+                                        hijos[0].insertar(auxiliar[i],this);
+                                    }
                                     this.hijos[1]= new Pagina(max,this);
                                     for (int i = 0; i < max%2+1; i++) {
                                         hijos[1].insertar(auxiliar[i],this);
-                                    }
-                                    this.hijos[2]= new Pagina(max,this);
-                                    for (int i = 0; i < max%2+1; i++) {
-                                        hijos[2].insertar(auxiliar[i],this);
                                     }
                                 }
                             }
