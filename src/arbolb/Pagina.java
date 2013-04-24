@@ -134,14 +134,16 @@ public class Pagina {
                             for (int i = 0; i < max; i++) {
                                 this.datos[i]=null;
                             }
-                                this.datos[1]=auxiliar[max%2+1];
-                                this.hijos[1]= new Pagina(max,this);
-                                for (int i = 0; i < max%2+1; i++) {
-                                    hijos[1].insertar(auxiliar[i],this);
+                                this.datos[0]=auxiliar[(int)max%2+1];
+                                this.hijos[0]= new Pagina(max,this);
+                                for (int i = 0; i < (int)max%2+1; i++) {
+                                    hijos[0].insertar(auxiliar[i],this);
+                                    hijos[0].id=1;
                                 }
-                                this.hijos[2]= new Pagina(max,this);
-                                for (int i = 0; i < max%2+1; i++) {
-                                    hijos[2].insertar(auxiliar[i],this);
+                                this.hijos[1]= new Pagina(max,this);
+                                for (int i = 0; i < (int)max%2+1; i++) {
+                                    hijos[1].insertar(auxiliar[i],this);
+                                    hijos[1].id=2;
                                 }
                            this.elementos=1;
                             
@@ -214,13 +216,13 @@ public class Pagina {
                                 for (int i = 0; i < max; i++) {
                                     this.datos[i]=null;
                                 }
-                                    this.datos[0]=auxiliar[max%2+1];
+                                    this.datos[0]=auxiliar[(int)max%2+1];
                                     this.hijos[0]= new Pagina(max,this);
-                                    for (int i = 0; i < max%2+1; i++) {
+                                    for (int i = 0; i < (int)max%2+1; i++) {
                                         hijos[0].insertar(auxiliar[i],this);
                                     }
                                     this.hijos[1]= new Pagina(max,this);
-                                    for (int i = 0; i < max%2+1; i++) {
+                                    for (int i = 0; i < (int)max%2+1; i++) {
                                         hijos[1].insertar(auxiliar[i],this);
                                     }
                                 }
